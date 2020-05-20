@@ -5,10 +5,11 @@
 
 安装selenium: ```pip install selenium ```
 
-在chrome输入网址** chrome://version/**，查看浏览器版本，我的是`81.0.4044`。 在http://npm.taobao.org/mirrors/chromedriver/ 中找到81.0.4044里面的chromedriver_win32.zip下载，解压得到`chrome_driver.exe`。记下位置，后续json填写用。
+在chrome输入网址chrome://version/，查看浏览器版本，我的是`81.0.4044`。 
+在http://npm.taobao.org/mirrors/chromedriver/ 中找到81.0.4044里面的chromedriver_win32.zip下载，解压得到`chrome_driver.exe`。记下位置，后续personal.json填写用。
 
 ### 2.创建填写personal.json
-在项目目录下创建personal.json,并填下格式如下：
+在项目目录下创建personal.json,填写个人隐私信息，格式如下：
 ```
 {
     "executable_path" : "C:\\Users\\chromedriver.exe", 
