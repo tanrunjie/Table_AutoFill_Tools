@@ -49,6 +49,7 @@ class autoFill(object):
             print("Login Success!")
         finally:
             time.sleep(4)  # 等待表格页面载入信息
+            self.driver.maximize_window()
 
     def fill_table(self, temperature, address):
         """  自动填写一日一报
