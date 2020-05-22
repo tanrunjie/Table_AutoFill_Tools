@@ -7,6 +7,7 @@
 from selenium import webdriver
 import selenium.common.exceptions as eps
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 import time, random, json
 
 
@@ -41,7 +42,7 @@ class autoFill(object):
             self.driver.find_element_by_css_selector("button.white.loginBt").click()
 
         except eps.WebDriverException:
-            print("Server got error, might be firefox plug-ins.")
+            print("Server got error, restart before close all the test chromes, also possible firefox plug-ins.")
         except eps.NoSuchElementException:
             print("Cant find the element.")
             pass
@@ -84,31 +85,53 @@ class autoFill(object):
         try:
             self.driver.find_element_by_xpath(
                 '//input[@placeholder="例36.8，注：>=37.3为发烧"]').send_keys(temperature)
-            # 返回日期
+
+            # 日期控件填写
             js1 = 'document.getElementsByClassName("bgy-input")[3].removeAttribute("readonly");'
             self.driver.execute_script(js1)
-            js2 = 'document.getElementsByClassName("bgy-input")[3].value="2018-05-01";'
-            self.driver.execute_script(js2)
+            self.driver.find_elements_by_xpath(
+                '//input[@class="bgy-input" and @placeholder="点击选择日期"]')[1].send_keys("2018-05-01")
 
-            # 地址所辖
+            # 详细地址填写
             js1 = 'document.getElementsByClassName("ivu-input ivu-input-default")[0].removeAttribute("readonly");'
             self.driver.execute_script(js1)
-            js2 = 'document.getElementsByClassName("ivu-input ivu-input-default")[0].value="广东省 / 佛山市 / 顺德区";'
-            self.driver.execute_script(js2)
 
             addr = self.driver.find_element_by_xpath(
                 '//input[@class="bgy-input" and @placeholder="填写详细地址"]')
             addr.send_keys(address)
 
+
+            # 地址控件的自动点选
+
+            # province = self.driver.find_elements_by_xpath(
+            #     '//input[@class="ivu-input ivu-input-default" and @placeholder="请选择"]')[0].send_keys('广东省 / 佛山市 / 顺德区')
+            # province = self.driver.find_element_by_xpath('//ul[@class = "ivu-select-dropdown-list"]/li/span')
+            # self.driver.execute_script("arguments[0].textContent = '广东省 / 佛山市 / 顺德区' " , province)
+            self.driver.find_elements_by_xpath(
+                  '//input[@class="ivu-input ivu-input-default" and @placeholder="请选择"]')[0].click()
+            time.sleep(1)
+            province = self.driver.find_elements_by_xpath('//li[@class="ivu-cascader-menu-item" and contains(text(),"广东省" )]')[0]
+            self.driver.execute_script("arguments[0].scrollIntoView();", province)
+            time.sleep(1)
+            province.click()
+            time.sleep(1)
+            city = self.driver.find_elements_by_xpath('//li[@class="ivu-cascader-menu-item" and contains(text(),"佛山市")]')[0]
+            self.driver.execute_script("arguments[0].scrollIntoView();", city)
+            time.sleep(1)
+            city.click()
+            district = self.driver.find_elements_by_xpath('//li[@class="ivu-cascader-menu-item" and contains(text(),"顺德区")]')[0]
+            self.driver.execute_script("arguments[0].scrollIntoView();", district)
+            time.sleep(1)
+            district.click()
+
         except eps.InvalidElementStateException:
-            print("Element maybe invisible, readonly or point to a wrong element.")
-        except JavascriptException:
+            print("Complicated wigets contains invisible Element, readonly or point to a wrong element.")
+        except eps.JavascriptException:
             print("the javascript command is invalid.")
         
         else:
             print("Fill all the text contents correctly!")
         
-
         print('Finished Table AutoFill.')
 
 
