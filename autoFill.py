@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 # Author  : tanrunjie
-# Date    : 2020-05-20
 # Version : v1.0
 # License : MIT
 
@@ -102,7 +101,7 @@ class autoFill(object):
 
 
             # 地址控件的自动点选
-
+            
             # province = self.driver.find_elements_by_xpath(
             #     '//input[@class="ivu-input ivu-input-default" and @placeholder="请选择"]')[0].send_keys('广东省 / 佛山市 / 顺德区')
             # province = self.driver.find_element_by_xpath('//ul[@class = "ivu-select-dropdown-list"]/li/span')
@@ -132,6 +131,7 @@ class autoFill(object):
         else:
             print("Fill all the text contents correctly!")
         
+
         print('Finished Table AutoFill.')
 
 
